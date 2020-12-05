@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <p>タイトル：{{ post.title }}</p>
+  <p>元の文章：{{ post.memo }}</p>
+  <p>形態素解析結果：{{ post.juman }}</p>
+{% endblock content %}
