@@ -4,6 +4,13 @@ from .models import Post
 from .forms import PostForm
 from pyknp import Juman
 from pyknp import KNP
+import csv
+
+with open('/home/ubuntu/20201205/sampleform/formapp/Rep_Dic5.csv',encoding='shift_jis') as f_match:
+    reader_match  = csv.reader(f_match)
+    l_match = [row for row in reader_match]
+
+
 knp_1 = KNP() 
 jumanpp = Juman()
 result = jumanpp.analysis("すもももももももものうち")
@@ -45,8 +52,8 @@ def formfunc(request):
             post.knp = knp_temp
             
             post.answer = '答えはここに入れる'
-            post.match = 'マッチ部分はここに入れる'
-
+            #post.match = 'マッチ部分はここに入れる'
+            post.match = l_match
             post.save()
             return redirect('list')
     else:
