@@ -3,9 +3,8 @@
 {% block content %}
   <p>タイトル：{{ post.title }}</p>
   <p>元の文章：{{ post.memo }}</p>
-  <p>形態素解析結果：{{ post.juman }}</p>
-  <p>knp解析結果：{{ post.knp }}</p>
-  <p>質問の答え：{{ post.answer }}</p>
-  <p>マッチ部分：{{ post.match }}</p>
-  <p>CSV前文をのせます：{{ post.match }}</p>
+  <p><font color=red>質問の答え：{{ post.answer }}</p>
+  <p><font color=red>マッチ部分：{{ post.match }}</p>
+  <p><font  size="1" color=black>形態素解析結果：{{ post.juman }}</p>
+  <p><font  size="1" color=black>knp解析結果：{{ post.knp }}</p>
 {% endblock content %}

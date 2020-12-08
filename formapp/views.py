@@ -51,9 +51,15 @@ def formfunc(request):
             #post.knp = "aaaa11"
             post.knp = knp_temp
             
-            post.answer = '答えはここに入れる'
+            for  i in range(len(l_match)):
+                #if raw_sentence.find(l_match[i][0]):
+                if l_match[i][0] in raw_sentence:
+                   post.answer = l_match[i][1]
+                   post.match = l_match[i][0]
+                   break
+            #post.answer = '答えはここに入れる'
             #post.match = 'マッチ部分はここに入れる'
-            post.match = l_match
+            #post.match = l_match
             post.save()
             return redirect('list')
     else:
