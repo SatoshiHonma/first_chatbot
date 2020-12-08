@@ -3,6 +3,8 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from pyknp import Juman
+from pyknp import KNP
+knp = KNP() 
 jumanpp = Juman()
 result = jumanpp.analysis("すもももももももものうち")
 sentence =''
@@ -25,11 +27,21 @@ def formfunc(request):
             juman_temp = ''
             raw_sentence = ''
             raw_sentence = post.memo
-            result =jumanpp.analysis(raw_sentence)
-            for mrph in result:
+
+            result_juman =jumanpp.analysis(raw_sentence)
+            for mrph in result_juman:
                 juman_temp = juman_temp + ("\n見出し:%s, \n読み:%s, \n原形:%s, \n品詞:%s, \n品詞細分類:%s, \n活用型:%s, \n活用形:%s, \n意味情報:%s, \n代表表記:%s"\
             % (mrph.midasi, mrph.yomi, mrph.genkei, mrph.hinsi, mrph.bunrui, mrph.katuyou1, mrph.katuyou2, mrph.imis, mrph.repname))
             post.juman =juman_temp
+
+            knp_temp =''
+            result_knp = knp.parse("下鴨神社の参道は暗かった。")
+            for bnst in result.bnst_list(): # 各文節へのアクセス
+                knp_temp = knp_temp +("\tID:%d, 見出し:%s, 係り受けタイプ:%s, 親文節ID:%d, 素性:%s" \
+            % (bnst.bnst_id, "".join(mrph.midasi for mrph in bnst.mrph_list()), bnst.dpndtype, bnst.parent_id, bnst.fstring))
+
+
+
             post.save()
             return redirect('list')
     else:
