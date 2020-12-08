@@ -35,11 +35,7 @@ def formfunc(request):
             post.juman =juman_temp
 
             knp_temp =''
-            result_knp = knp.parse("下鴨神社の参道は暗かった。")
-            for bnst in result.bnst_list(): # 各文節へのアクセス
-                knp_temp = knp_temp +("\tID:%d, 見出し:%s, 係り受けタイプ:%s, 親文節ID:%d, 素性:%s" \
-            % (bnst.bnst_id, "".join(mrph.midasi for mrph in bnst.mrph_list()), bnst.dpndtype, bnst.parent_id, bnst.fstring))
-
+            post.knp = "aaaa"
 
 
             post.save()
