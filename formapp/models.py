@@ -5,8 +5,5 @@ class Post(models.Model):
     memo = models.TextField()
     juman = models.TextField()  
     knp = models.TextField()  
-<<<<<<< HEAD
     answer = models.TextField()  
     match  = models.TextField()  
-=======
->>>>>>> 0b7709c2468b7a7dc0871da89016190f7722dd34
