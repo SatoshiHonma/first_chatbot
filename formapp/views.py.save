@@ -3,12 +3,9 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from pyknp import Juman
-from pyknp import KNP
-knp_1 = KNP() 
 jumanpp = Juman()
+knp = KNP()    
 result = jumanpp.analysis("すもももももももものうち")
-result_2 = knp_1.parse("下鴨神社の参道は暗かった。")
-
 sentence =''
 for mrph in result.mrph_list(): # 各形態素にアクセス
     sentence = sentence + ("\n見出し:%s, \n読み:%s, \n原形:%s, \n品詞:%s, \n品詞細分類:%s, \n活用型:%s, \n活用形:%s, \n意味情報:%s, \n代表表記:%s" \
@@ -26,29 +23,31 @@ def formfunc(request):
             #    juman_temp = juman_temp + ("\n見出し:%s, \n読み:%s, \n原形:%s, \n品詞:%s, \n品詞細分類:%s, \n活用型:%s, \n活用形:%s, \n意味情報:%s, \n代表表記:%s" \
            # % (mrph.midasi, mrph.yomi, mrph.genkei, mrph.hinsi, mrph.bunrui, mrph.katuyou1, mrph.katuyou2, mrph.imis, mrph.repname))
             #form.juman = "すももももももももももも"
-            juman_temp = ''
+            
             raw_sentence = ''
             raw_sentence = post.memo
-
+            juman_temp = ''
             result_juman =jumanpp.analysis(raw_sentence)
             for mrph in result_juman:
                 juman_temp = juman_temp + ("\n見出し:%s, \n読み:%s, \n原形:%s, \n品詞:%s, \n品詞細分類:%s, \n活用型:%s, \n活用形:%s, \n意味情報:%s, \n代表表記:%s"\
             % (mrph.midasi, mrph.yomi, mrph.genkei, mrph.hinsi, mrph.bunrui, mrph.katuyou1, mrph.katuyou2, mrph.imis, mrph.repname))
             post.juman =juman_temp
 
-            result_knp =knp_1.parse(raw_sentence)
-            knp_temp =''
+            knp_temp = ''
+            result_knp=knp.parse(raw_sentence)
             for bnst in result_knp.bnst_list(): # 各文節へのアクセス
                 knp_temp = knp_temp + ("\tID:%d, 見出し:%s, 係り受けタイプ:%s, 親文節ID:%d, 素性:%s" \
             % (bnst.bnst_id, "".join(mrph.midasi for mrph in bnst.mrph_list()), bnst.dpndtype, bnst.parent_id, bnst.fstring))
-            #post.knp = "aaaa11"
-            post.knp = knp_temp
-
-            post.save()
+            
+post.save()
+            
             return redirect('list')
     else:
         form = PostForm()
     return render(request, 'form.html', {'form': form})
+ 
+
+
 
 def listfunc(request):
     posts = Post.objects.all()
