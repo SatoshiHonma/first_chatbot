@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>形態素解析します</h1>
+  <h1>形態素解析とKNPします</h1>
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}

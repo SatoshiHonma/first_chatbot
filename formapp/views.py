@@ -43,6 +43,9 @@ def formfunc(request):
             % (bnst.bnst_id, "".join(mrph.midasi for mrph in bnst.mrph_list()), bnst.dpndtype, bnst.parent_id, bnst.fstring))
             #post.knp = "aaaa11"
             post.knp = knp_temp
+            
+            post.answer = '答えはここに入れる'
+            post.match = 'マッチ部分はここに入れる'
 
             post.save()
             return redirect('list')

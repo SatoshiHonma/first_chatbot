@@ -5,3 +5,5 @@ class Post(models.Model):
     memo = models.TextField()
     juman = models.TextField()  
     knp = models.TextField()  
+    answer = models.TextField()  
+    match  = models.TextField()  
